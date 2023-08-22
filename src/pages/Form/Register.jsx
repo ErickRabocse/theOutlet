@@ -1,31 +1,42 @@
-// import React from "react";
-import { useForm } from 'react-hook-form'
 // import { ageValidator } from './ageValidator'
+import { useForm } from 'react-hook-form'
+import axios from 'axios'
 import './form.scss'
 
 const Register = () => {
   const {
     register,
     formState: { errors },
-    watch,
     handleSubmit
-  } = useForm({
-    defaultValues: {
-      name: '',
-      address: ''
+  } = useForm()
+
+  const onSubmit = async (data) => {
+    console.log(data)
+
+    const config = {
+      method: 'post',
+      maxBodyLength: Infinity,
+      url: 'https://theoutlet.onrender.com/register',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      data: JSON.stringify(data)
     }
-  })
 
-  const onSubmit = (info) => {
-    console.log(info)
+    axios.request(config)
+      .then((response) => {
+        console.log(JSON.stringify(response.data))
+      })
+      .catch((error) => {
+        console.log(error)
+      })
   }
-
-  // const includeGender = watch('includeGender')
 
   return (
     <div className='form'>
       <h2>Register</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
+
         <div>
           <label>First name</label>
           <input
@@ -60,29 +71,14 @@ const Register = () => {
           <label>Gender</label>
           <select className='form__input form__input--select' {...register('gender', { required: true })}>
             <option value=''>Select</option>
-            <option value='male'>Male</option>
-            <option value='female'>Female</option>
+            <option value='M'>Male</option>
+            <option value='F'>Female</option>
           </select>
           {errors.gender?.type === 'required' && (
             <p className='form__errorMessage'>This field is required.</p>
           )}
         </div>
 
-        <div>
-          <label>Address</label>
-          <input
-            className='form__input'
-            type='text' placeholder='Street, number, city, state & ZC.'
-            {...register('address', { required: true, maxLength: 50 })}
-          />
-          {errors.address?.type === 'required' && (
-            <p className='form__errorMessage'>This field is required.</p>
-          )}
-          {errors.address?.type === 'maxLength' && (
-            <p className='form__errorMessage'>Max length 50 characters.</p>
-          )}
-
-        </div>
         <div>
           <label>Email Address</label>
           <input
@@ -102,6 +98,7 @@ const Register = () => {
             </p>
           )}
         </div>
+
         <div>
           <label>Password</label>
           <input
@@ -139,7 +136,7 @@ const Register = () => {
           </div>
         )} */}
 
-        <input type='submit' value='Send' />
+        <input type='submit' value='Submit' />
       </form>
     </div>
   )
