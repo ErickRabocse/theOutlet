@@ -1,10 +1,15 @@
 import './App.css'
-import Form from './components/Form/Form'
+import Header from './components/Header/Header'
+import { BrowserRouter } from 'react-router-dom'
+import RoutesIndex from '@/routes'
 
 function App () {
   return (
     <>
-      <Form />
+      <BrowserRouter>
+        <Header />
+        <RoutesIndex />
+      </BrowserRouter>
     </>
   )
 }

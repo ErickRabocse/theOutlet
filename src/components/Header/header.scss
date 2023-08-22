@@ -1,0 +1,65 @@
+$menu-color: #3d3d3d;
+
+@mixin header-link {
+    color: $menu-color;
+    text-decoration: none;
+    letter-spacing: 1.4px;
+}
+
+.header {
+    width:100vw;
+    height: 50px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 30px;
+
+    &__container{
+        display: flex;
+        width: 100vw;
+    }
+
+    &__logo {
+        @include header-link;
+        font-size: 1.5rem;
+    }
+
+    &__nav-list {
+        display: flex;
+        flex-wrap: wrap;
+        list-style: none;
+        gap: 20px;
+        margin-bottom: 0;
+    }
+
+    // &__list-item {
+    //     margin-left: 25px;
+    // }
+
+    &__item-link {
+        @include header-link;
+        display: inline-block;
+
+        &--is-active {
+            border-bottom: 2px solid $menu-color;
+        }
+
+        &::after {
+            content: '';
+            display: block;
+            margin-top: 5px;
+            width: 0;
+            height: 2px;
+            background-color: $menu-color;
+            transition: 0.3s;
+        }
+
+        &:hover::after {
+            width:100%;
+        }
+
+
+    }
+}
+

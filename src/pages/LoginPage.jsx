@@ -1,8 +1,7 @@
-import FormLogin from './FormLogin'
-import FormRegister from './FormRegister'
-import './form.scss'
+import Login from './Form/Login'
+import './Form/form.scss'
 
-const Form = () => {
+const LoginPage = () => {
   return (
     <div className='form__container'>
       <div className='form__img'>
@@ -10,12 +9,9 @@ const Form = () => {
       </div>
       <div className='form__access'>
         <img className='form__logo' src='./logo.png' alt='store brand logo' />
-        <FormLogin />
-        <span className='form__or'>- OR -</span>
-        <FormRegister />
+        <Login />
       </div>
-
     </div>
   )
 }
-export default Form
+export default LoginPage
