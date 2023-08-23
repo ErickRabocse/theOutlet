@@ -9,3 +9,11 @@ body{
 .card{
     margin-bottom: 20px;
 }
+.loading, .error{
+    margin-top: 20px;
+    margin-left: 20px;
+    color: white;
+}
+.card-title{
+    font-size: 1rem;
+}

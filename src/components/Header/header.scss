@@ -8,7 +8,7 @@ $menu-color: #3d3d3d;
 
 .header {
     width:100vw;
-    height: 50px;
+    height:80px;
     background-color: white;
     display: flex;
     justify-content: space-between;
@@ -23,6 +23,41 @@ $menu-color: #3d3d3d;
     &__logo {
         @include header-link;
         font-size: 1.5rem;
+    }
+
+    &__searchBar{
+        width: 600px;
+        height: 40px;
+        border-radius: 30px;
+        display: flex;
+        align-items: center;
+        border: 1px solid $menu-color;
+        padding: 0 15px ;
+    }
+
+    &__sarchBtn{
+        background-color: white;
+        height: 35px;
+        display: flex;
+        align-items: center;
+        border-left: 1px solid black;
+        outline: none;
+    }
+    &__sarchBtn:hover{
+        background-color: white;
+    }
+
+    &__search{
+        background-color: white;
+        flex: 1;
+        padding: 5px 15px ;
+        margin: 0 15px ;
+        color: rgba(0, 0, 0, 0.736);
+        height: 30px;
+        font-size: 18px;
+    }
+    &__search:focus{
+        outline: 2px solid white;
     }
 
     &__nav-list {

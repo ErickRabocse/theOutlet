@@ -12,6 +12,12 @@ const Header = () => {
         <NavLink to='/' className='header__logo'>
           the Outlet
         </NavLink>
+        <div className='header__searchBar'>
+          <input className='header__search' type='text' />
+          <button className='header__sarchBtn'>
+            <img className='header__sarchIcon' src='./search.svg' alt='search icon' style={{ height: '20px' }} />
+          </button>
+        </div>
         <ul className='header__nav-list'>
           <li className='header__list-item'>
             <NavLink to='/' className={({ isActive }) => linkIsActive(isActive)}>Home</NavLink>

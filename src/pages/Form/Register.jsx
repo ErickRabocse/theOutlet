@@ -1,6 +1,5 @@
-// import { ageValidator } from './ageValidator'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
+import { registerUserService } from '@/services/userService'
 import './form.scss'
 
 const Register = () => {
@@ -10,32 +9,19 @@ const Register = () => {
     handleSubmit
   } = useForm()
 
-  const onSubmit = async (data) => {
-    console.log(data)
-
-    const config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'https://theoutlet.onrender.com/register',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      data: JSON.stringify(data)
+  const sendData = async (data) => {
+    try {
+      const response = await registerUserService(data)
+      console.log(response)
+    } catch (error) {
+      console.error(error)
     }
-
-    axios.request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data))
-      })
-      .catch((error) => {
-        console.log(error)
-      })
   }
 
   return (
     <div className='form'>
       <h2>Register</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(sendData)}>
 
         <div>
           <label>First name</label>

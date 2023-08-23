@@ -1,7 +1,8 @@
-// import React from "react";
+// import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import axios from 'axios'
+import { loginUserService } from '@/services/userService'
 import './form.scss'
+import { useAdminContext } from '@/hooks/useAdmin'
 
 const Login = () => {
   const {
@@ -10,39 +11,46 @@ const Login = () => {
     handleSubmit
   } = useForm()
 
-  const onSubmit = async (data) => {
+  const { login } = useAdminContext()
+
+  const sendData = async (data) => {
     console.log(data)
+    // *----- THE CODE BELOW WAS TAKEN FROM CODE SNIPPET POSTMAN -----*
+    // const config = {
+    //   method: 'post',
+    //   maxBodyLength: Infinity,
+    //   url: 'https://theoutlet.onrender.com/login',
+    //   headers: {
+    //     'Content-Type': 'application/json'
+    //   },
+    //   data: JSON.stringify(data)
+    // }
+    // axios.request(config)
+    //   .then((response) => {
+    //     console.log(JSON.stringify(response.data))
+    //   })
+    //   .catch((error) => {
+    //     console.log(error)
+    //   })
+    // *----- THE CODE ABOVE WAS TAKEN FROM CODE SNIPPET POSTMAN -----*
 
-    // const axios = require('axios')
-    // const data = JSON.stringify({
-    //   email: 'superman@dc.com',
-    //   password: 'superman'
-    // })
-
-    const config = {
-      method: 'post',
-      maxBodyLength: Infinity,
-      url: 'https://theoutlet.onrender.com/login',
-      headers: {
-        'Content-Type': 'application/json'
-        // Authorization: 'Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjdmNTQ1MzkwLWZkOGYtNDQxMi1iN2IzLTRlMjY3NTg2NzUxZiIsInJvbGUiOiJBRE1JTiIsImlhdCI6MTY5MjY3MzM1NX0.wZace60PFzcNe6ScnF2AZjCBorpwwL1Ym5W0h1UyTBw'
-      },
-      data: JSON.stringify(data)
+    try {
+      // const response = await loginUserService(data)
+      // localStorage.setItem('jwt_token', response.data.token)
+      // console.log('RESPONSE', response, 'RESPONSE.DATA', response.data, 'RESPONSE.DATA.TOKEN', response.data.token)
+      const { data: token } = await loginUserService(data)
+      localStorage.setItem('jwt_token', token)
+      console.log(token)
+      login(token)
+    } catch (error) {
+      console.error(error)
     }
-
-    axios.request(config)
-      .then((response) => {
-        console.log(JSON.stringify(response.data))
-      })
-      .catch((error) => {
-        console.log(error)
-      })
   }
 
   return (
     <div className='form'>
       <h2>Log in</h2>
-      <form onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(sendData)}>
 
         <div>
           <label>Email</label>
