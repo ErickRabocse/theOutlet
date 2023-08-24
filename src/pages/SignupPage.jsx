@@ -1,5 +1,5 @@
 import Register from './Form/Register'
-import './Form/form.scss'
+import '@/styles/form.scss'
 
 const SignupPage = () => {
   return (

@@ -3,7 +3,7 @@ body{
 }
 .container{
     width: 100vw;
-    margin-top: 40px;
+    margin-top: 20px;
     gap: 10px;
 }
 .card{
@@ -16,4 +16,9 @@ body{
 }
 .card-title{
     font-size: 1rem;
+}
+.img{
+    height: 260px; 
+    object-fit: contain;
+    
 }

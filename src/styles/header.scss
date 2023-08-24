@@ -28,20 +28,20 @@ $menu-color: #3d3d3d;
     &__searchBar{
         width: 600px;
         height: 40px;
-        border-radius: 30px;
+        border-radius: 30px 17px 17px 30px;
         display: flex;
         align-items: center;
         border: 1px solid $menu-color;
         padding: 0 15px ;
     }
-
     &__sarchBtn{
         background-color: white;
         height: 35px;
         display: flex;
         align-items: center;
         border-left: 1px solid black;
-        outline: none;
+        margin-right: -15px;
+        border-radius: 0 10px 10px 0;
     }
     &__sarchBtn:hover{
         background-color: white;

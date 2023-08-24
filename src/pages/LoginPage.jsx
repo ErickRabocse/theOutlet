@@ -1,5 +1,5 @@
 import Login from './Form/Login'
-import './Form/form.scss'
+import '@/styles/form.scss'
 
 const LoginPage = () => {
   return (

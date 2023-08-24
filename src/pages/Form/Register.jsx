@@ -1,8 +1,11 @@
 import { useForm } from 'react-hook-form'
 import { registerUserService } from '@/services/userService'
-import './form.scss'
+import { useNavigate } from 'react-router-dom'
+import '@/styles/form.scss'
 
 const Register = () => {
+  const navigate = useNavigate()
+
   const {
     register,
     formState: { errors },
@@ -13,6 +16,7 @@ const Register = () => {
     try {
       const response = await registerUserService(data)
       console.log(response)
+      navigate('/')
     } catch (error) {
       console.error(error)
     }
@@ -20,7 +24,7 @@ const Register = () => {
 
   return (
     <div className='form'>
-      <h2>Register</h2>
+      <h2 className='form__title'>Register</h2>
       <form onSubmit={handleSubmit(sendData)}>
 
         <div>
@@ -122,7 +126,7 @@ const Register = () => {
           </div>
         )} */}
 
-        <input type='submit' value='Submit' />
+        <input className='form__send_btn' type='submit' value='Submit' />
       </form>
     </div>
   )

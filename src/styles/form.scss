@@ -1,3 +1,5 @@
+$blue-navy: rgb(4, 10, 15);
+
 .form{
   display: flex;
   flex-direction: column;
@@ -45,7 +47,22 @@
     width: 300px;
     &--select{
       width: auto;
+      &:hover{
+        background-color: $blue-navy;
+        color: white;
+        transition: all .2s;
+      }
     }
+  }
+  &__title{
+    color: white;
+  }
+  &__send_btn{
+    margin-top: 10px
+  }
+  &__send_btn:hover{
+    border: 1px solid white;
+
   }
 }
 

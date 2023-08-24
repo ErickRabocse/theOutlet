@@ -1,9 +1,10 @@
 // import axios from 'axios'
 import { useForm } from 'react-hook-form'
 import { loginUserService } from '@/services/userService'
-import './form.scss'
 import { useAdminContext } from '@/hooks/useAdmin'
 import { useNavigate } from 'react-router-dom'
+import '@/styles/form.scss'
+
 // import { Navigate } from 'react-router-dom'
 
 const Login = () => {
@@ -54,7 +55,7 @@ const Login = () => {
 
   return (
     <div className='form'>
-      <h2>Log in</h2>
+      <h2 className='title'>Log in</h2>
       <form onSubmit={handleSubmit(sendData)}>
 
         <div>
@@ -85,7 +86,7 @@ const Login = () => {
             <p className='form__errorMessage'>Max length 50 characters.</p>
           )}
         </div>
-        <input type='submit' value='Send' />
+        <input className='form__send_btn' type='submit' value='Send' />
       </form>
     </div>
   )

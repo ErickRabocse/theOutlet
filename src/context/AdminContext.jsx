@@ -1,11 +1,20 @@
 import { createContext, useState } from 'react'
 import jwt_decode from 'jwt-decode'
+import useFetch from '../hooks/useFetch'
 
 // Step 1: Create context
 const AdminContext = createContext()
 
 // Step 2: Create context provider
 const AdminProvider = ({ children }) => {
+  // FETCH API STARTS
+  const BASE_URL = 'https://theoutlet.onrender.com/items'
+  const { data } = useFetch(BASE_URL)
+  const [item, setItem] = useState('')
+  const [filteredItems, setFilteredItems] = useState([])
+
+  // FETCH API ENDS
+
   const [isAdmin, setIsAdmin] = useState(false)
 
   const login = (token) => {
@@ -22,7 +31,7 @@ const AdminProvider = ({ children }) => {
   }
 
   return (
-    <AdminContext.Provider value={{ isAdmin, login, logout }}>
+    <AdminContext.Provider value={{ isAdmin, login, logout, data, item, setItem, filteredItems, setFilteredItems }}>
       {children}
     </AdminContext.Provider>
   )
