@@ -35,13 +35,15 @@ const Login = () => {
     // *----- THE CODE ABOVE WAS TAKEN FROM CODE SNIPPET POSTMAN -----*
 
     try {
-      // const response = await loginUserService(data)
-      // localStorage.setItem('jwt_token', response.data.token)
-      // console.log('RESPONSE', response, 'RESPONSE.DATA', response.data, 'RESPONSE.DATA.TOKEN', response.data.token)
-      const { data: token } = await loginUserService(data)
+      const response = await loginUserService(data)
+      const token = response.data.token
       localStorage.setItem('jwt_token', token)
-      console.log(token)
+      console.log('RESPONSE', response, 'RESPONSE.DATA', response.data, 'RESPONSE.DATA.TOKEN', response.data.token)
       login(token)
+      // const { data: token } = await loginUserService(data)
+      // localStorage.setItem('jwt_token', token)
+      // (token)
+      // login(token)
     } catch (error) {
       console.error(error)
     }

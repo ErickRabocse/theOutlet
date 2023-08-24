@@ -1,7 +1,10 @@
 import { NavLink } from 'react-router-dom'
 import './header.scss'
+import { useAdminContext } from '../../hooks/useAdmin'
 
 const Header = () => {
+  const { logout } = useAdminContext()
+
   const linkIsActive = (isActive) => {
     return isActive ? 'header__item-link header__item-link--is-active' : 'header__item-link'
   }
@@ -33,6 +36,9 @@ const Header = () => {
           </li>
           <li className='header__list-item'>
             <NavLink to='/signupPage' className={({ isActive }) => linkIsActive(isActive)}>Sign up</NavLink>
+          </li>
+          <li className='header__list-item'>
+            <NavLink to='/' onClick={logout}>Log out</NavLink>
           </li>
         </ul>
       </nav>
