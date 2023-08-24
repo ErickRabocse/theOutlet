@@ -13,7 +13,7 @@ const AdminProvider = ({ children }) => {
     console.log('THIS IS DECODED', decoded)
     const admin = decoded.role === 'ADMIN'
     setIsAdmin(admin)
-    // return admin
+    return admin
   }
 
   const logout = () => {

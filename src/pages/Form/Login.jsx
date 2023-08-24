@@ -3,6 +3,8 @@ import { useForm } from 'react-hook-form'
 import { loginUserService } from '@/services/userService'
 import './form.scss'
 import { useAdminContext } from '@/hooks/useAdmin'
+import { useNavigate } from 'react-router-dom'
+// import { Navigate } from 'react-router-dom'
 
 const Login = () => {
   const {
@@ -10,8 +12,8 @@ const Login = () => {
     formState: { errors },
     handleSubmit
   } = useForm()
-
   const { login } = useAdminContext()
+  const navigate = useNavigate()
 
   const sendData = async (data) => {
     console.log(data)
@@ -39,7 +41,8 @@ const Login = () => {
       const token = response.data.token
       localStorage.setItem('jwt_token', token)
       console.log('RESPONSE', response, 'RESPONSE.DATA', response.data, 'RESPONSE.DATA.TOKEN', response.data.token)
-      login(token)
+      const admin = login(token)
+      navigate(admin ? '/secret' : '/')
       // const { data: token } = await loginUserService(data)
       // localStorage.setItem('jwt_token', token)
       // (token)

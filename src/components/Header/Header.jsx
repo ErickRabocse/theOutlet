@@ -3,7 +3,7 @@ import './header.scss'
 import { useAdminContext } from '../../hooks/useAdmin'
 
 const Header = () => {
-  const { logout } = useAdminContext()
+  const { logout, isAdmin } = useAdminContext()
 
   const linkIsActive = (isActive) => {
     return isActive ? 'header__item-link header__item-link--is-active' : 'header__item-link'
@@ -28,9 +28,12 @@ const Header = () => {
           <li className='header__list-item'>
             <NavLink to='/dashboard' className={({ isActive }) => linkIsActive(isActive)}>Dashboard</NavLink>
           </li>
-          <li className='header__list-item'>
-            <NavLink to='/secret' className={({ isActive }) => linkIsActive(isActive)}>Secret</NavLink>
-          </li>
+          {
+            isAdmin &&
+              <li className='header__list-item'>
+                <NavLink to='/secret' className={({ isActive }) => linkIsActive(isActive)}>Secret</NavLink>
+              </li>
+          }
           <li className='header__list-item'>
             <NavLink to='/loginPage' className={({ isActive }) => linkIsActive(isActive)}>Log in</NavLink>
           </li>
