@@ -7,31 +7,24 @@ const AdminContext = createContext()
 
 // Step 2: Create context provider
 const AdminProvider = ({ children }) => {
-  // FETCH API STARTS
-  const BASE_URL = 'https://theoutlet.onrender.com/items'
-  const { data } = useFetch(BASE_URL)
+  // FETCH API SECTION
+  const { loading, error, data } = useFetch('https://theoutlet.onrender.com/items')
   const [item, setItem] = useState('')
   const [filteredItems, setFilteredItems] = useState([])
-
-  // FETCH API ENDS
-
+  // SIGN IN SECTION
   const [isAdmin, setIsAdmin] = useState(false)
-
   const login = (token) => {
     const decoded = jwt_decode(token)
-    console.log('THIS IS DECODED', decoded)
     const admin = decoded.role === 'ADMIN'
     setIsAdmin(admin)
     return admin
   }
-
   const logout = () => {
     localStorage.removeItem('jwt_token')
     setIsAdmin(false)
   }
-
   return (
-    <AdminContext.Provider value={{ isAdmin, login, logout, data, item, setItem, filteredItems, setFilteredItems }}>
+    <AdminContext.Provider value={{ isAdmin, login, logout, item, setItem, filteredItems, setFilteredItems, loading, error, data }}>
       {children}
     </AdminContext.Provider>
   )

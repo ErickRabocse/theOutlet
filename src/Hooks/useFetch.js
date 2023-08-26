@@ -23,7 +23,7 @@ const useFetch = (url) => {
         // Promise.reject RETURNS an ERROR if something failed
         return Promise.reject(res)
       })
-      .then(setData)
+      .then(data => setData(data))
       .catch((e) => {
         if (e.name === 'AbortError') return
         setError(true)

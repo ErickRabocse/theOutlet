@@ -33,9 +33,9 @@ const Secret = () => {
                   {first_name} {last_name}
                 </div>
                 <ul className='list-group list-group-flush'>
-                  <li className='list-group-item'>{gender}</li>
-                  <li className='list-group-item'>{email}</li>
-                  <li className='list-group-item'>{role}</li>
+                  <li className='list-group-item'><span>Gender:</span> {gender}</li>
+                  <li className='list-group-item'><span>Email:</span> {email}</li>
+                  <li className='list-group-item'><span>Role:</span> {role}</li>
                 </ul>
               </div>
 

@@ -1,6 +1,6 @@
 import { NavLink } from 'react-router-dom'
 import '@/styles/header.scss'
-import { useAdminContext } from '../../hooks/useAdmin'
+import { useAdminContext } from '@/hooks/useAdmin'
 
 const Header = () => {
   const { logout, isAdmin, data, item, setItem, setFilteredItems } = useAdminContext()
@@ -10,10 +10,7 @@ const Header = () => {
   }
 
   const showItems = () => {
-    console.log('THIS IS DATA', data)
-    console.log('THIS IS THE ITEM TYPED', item)
-    const filteredStuff = data.filter(el => el.product_name.toLowerCase().includes(item.toLowerCase()))
-    console.log('THESE ARE THE ITEMS FILTERED', filteredStuff)
+    const filteredStuff = data.filter(el => el.product_name.toLowerCase().includes(item.toLowerCase().trim()))
     setFilteredItems(filteredStuff)
   }
 
