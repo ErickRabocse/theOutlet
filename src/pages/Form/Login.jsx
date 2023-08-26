@@ -41,13 +41,9 @@ const Login = () => {
       const response = await loginUserService(data)
       const token = response.data.token
       localStorage.setItem('jwt_token', token)
-      console.log('RESPONSE', response, 'RESPONSE.DATA', response.data, 'RESPONSE.DATA.TOKEN', response.data.token)
       const admin = login(token)
       navigate(admin ? '/secret' : '/')
-      // const { data: token } = await loginUserService(data)
-      // localStorage.setItem('jwt_token', token)
-      // (token)
-      // login(token)
+      // console.log('RESPONSE', response, 'RESPONSE.DATA', response.data, 'RESPONSE.DATA.TOKEN', response.data.token)
     } catch (error) {
       console.error(error)
     }

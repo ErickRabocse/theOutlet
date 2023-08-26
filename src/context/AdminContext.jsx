@@ -7,7 +7,7 @@ const AdminContext = createContext()
 
 // Step 2: Create context provider
 const AdminProvider = ({ children }) => {
-  // FETCH API SECTION
+  // FETCH API SECTION 'https://theoutlet.onrender.com/items', https://ecommerce-json-jwt.onrender.com
   const { loading, error, data } = useFetch('https://theoutlet.onrender.com/items')
   const [item, setItem] = useState('')
   const [filteredItems, setFilteredItems] = useState([])

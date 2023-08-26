@@ -43,10 +43,10 @@ const Header = () => {
             <NavLink to='/loginPage' className={({ isActive }) => linkIsActive(isActive)}>Log in</NavLink>
           </li>
           <li className='header__list-item'>
-            <NavLink to='/signupPage' className={({ isActive }) => linkIsActive(isActive)}>Sign up</NavLink>
+            <NavLink to='/' onClick={logout}>Log out</NavLink>
           </li>
           <li className='header__list-item'>
-            <NavLink to='/' onClick={logout}>Log out</NavLink>
+            <NavLink to='/signupPage' className={({ isActive }) => linkIsActive(isActive)}>Sign up</NavLink>
           </li>
         </ul>
       </nav>
