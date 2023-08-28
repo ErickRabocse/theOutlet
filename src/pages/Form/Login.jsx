@@ -1,11 +1,9 @@
-// import axios from 'axios'
 import { useForm } from 'react-hook-form'
-import { loginUserService } from '@/services/userService'
+import { loginUserService, getActiveUser } from '@/services/userService'
 import { useAdminContext } from '@/hooks/useAdmin'
 import { useNavigate } from 'react-router-dom'
 import '@/styles/form.scss'
-
-// import { Navigate } from 'react-router-dom'
+// import { useEffect } from 'react'
 
 const Login = () => {
   const {
@@ -13,11 +11,33 @@ const Login = () => {
     formState: { errors },
     handleSubmit
   } = useForm()
-  const { login } = useAdminContext()
+  const { login, setLoggedIn, setUserName } = useAdminContext()
   const navigate = useNavigate()
 
   const sendData = async (data) => {
-    console.log(data)
+    /* STORING IN LOCAL STORAGE, THE login user DATA
+    localStorage.setItem('user_data', JSON.stringify(data))
+    const dataRETRIEVED = localStorage.getItem('user_data')
+    const unquotedData = dataRETRIEVED.replace(/"([^"]+)":/g, '$1:')
+    console.log('DATA RETRIEVED unquoted: ', unquotedData)
+    */
+    try {
+      const response = await loginUserService(data)
+      console.log('THIS IS THE loginUserService RESPONSE: ', response)
+      // GETTING THE STATUS FROM LOGIN
+      const userStatus = response.status === 200
+      setLoggedIn(userStatus)
+      const token = response.data.token
+      localStorage.setItem('jwt_token', token)
+      const admin = login(token)
+      navigate(admin ? '/secret' : '/')
+      // SETTING USER NAME
+      const userData = await getActiveUser(token)
+      const userNameFetched = userData.data.first_name
+      setUserName(userNameFetched)
+    } catch (error) {
+      console.error(error)
+    }
     // *----- THE CODE BELOW WAS TAKEN FROM CODE SNIPPET POSTMAN -----*
     // const config = {
     //   method: 'post',
@@ -36,18 +56,24 @@ const Login = () => {
     //     console.log(error)
     //   })
     // *----- THE CODE ABOVE WAS TAKEN FROM CODE SNIPPET POSTMAN -----*
-
-    try {
-      const response = await loginUserService(data)
-      const token = response.data.token
-      localStorage.setItem('jwt_token', token)
-      const admin = login(token)
-      navigate(admin ? '/secret' : '/')
-      // console.log('RESPONSE', response, 'RESPONSE.DATA', response.data, 'RESPONSE.DATA.TOKEN', response.data.token)
-    } catch (error) {
-      console.error(error)
-    }
   }
+
+  // useEffect(() => {
+  //   const fetchingUserName = async () => {
+  //     const dataRETRIEVED = localStorage.getItem('user_data')
+  //     const unquotedData = dataRETRIEVED.replace(/"([^"]+)":/g, '$1:')
+  //     console.log('DATA RETRIEVED unquoted: ', unquotedData)
+  //     console.log('unquoted data using useEffect', unquotedData)
+  //     const tokenRETRIEVED = await localStorage.getItem('jwt_token')
+  //     console.log('tokenRetrieved using useEffect', tokenRETRIEVED)
+  //     const userData = await getActiveUser(tokenRETRIEVED)
+  //     console.log('userData using useEffect', userData)
+  //     const userNameFetched = userData.data.first_name
+  //     console.log('userName using useEffect', userNameFetched)
+  //     setUserName(userNameFetched)
+  //   }
+  //   fetchingUserName()
+  // }, [])
 
   return (
     <div className='form'>

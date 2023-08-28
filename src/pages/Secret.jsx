@@ -1,10 +1,11 @@
 import { useEffect, useState } from 'react'
 import { getAllUsersService } from '../services/userService'
 import '@/styles/secret.scss'
+import { useAdminContext } from '../hooks/useAdmin'
 
 const Secret = () => {
   const [loading, setLoading] = useState(true)
-  const [users, setUsers] = useState(null)
+  const { users, setUsers } = useAdminContext()
 
   useEffect(() => {
     const fetchUsersData = async () => {

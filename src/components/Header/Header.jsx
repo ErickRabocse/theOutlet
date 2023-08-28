@@ -3,7 +3,7 @@ import '@/styles/header.scss'
 import { useAdminContext } from '@/hooks/useAdmin'
 
 const Header = () => {
-  const { logout, isAdmin, data, item, setItem, setFilteredItems } = useAdminContext()
+  const { logout, isAdmin, data, item, setItem, setFilteredItems, loggedIn, userName } = useAdminContext()
 
   const linkIsActive = (isActive) => {
     return isActive ? 'header__item-link header__item-link--is-active' : 'header__item-link'
@@ -39,15 +39,25 @@ const Header = () => {
                 <NavLink to='/secret' className={({ isActive }) => linkIsActive(isActive)}>Secret</NavLink>
               </li>
           }
-          <li className='header__list-item'>
-            <NavLink to='/loginPage' className={({ isActive }) => linkIsActive(isActive)}>Log in</NavLink>
-          </li>
-          <li className='header__list-item'>
-            <NavLink to='/' onClick={logout}>Log out</NavLink>
-          </li>
-          <li className='header__list-item'>
-            <NavLink to='/signupPage' className={({ isActive }) => linkIsActive(isActive)}>Sign up</NavLink>
-          </li>
+          {
+            !loggedIn
+              ? <li className='header__list-item header__list-item--login'>
+                <NavLink to='/loginPage' className={({ isActive }) => linkIsActive(isActive)}>Log in</NavLink>
+              </li>
+              : <span className='header__welcome-message'>Hi {userName}</span>
+          }
+          {
+            !loggedIn &&
+              <li className='header__list-item'>
+                <NavLink to='/signupPage' className={({ isActive }) => linkIsActive(isActive)}>Sign up</NavLink>
+              </li>
+          }
+          {
+            loggedIn &&
+              <li className='header__list-item'>
+                <NavLink to='/' onClick={logout}>Log out</NavLink>
+              </li>
+          }
         </ul>
       </nav>
     </div>

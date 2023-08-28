@@ -4,7 +4,7 @@ import { useAdminContext } from '@/hooks/useAdmin'
 
 const RoutesIndex = () => {
   // IMPORTING: THE isAdmin state
-  const { isAdmin } = useAdminContext()
+  const { isAdmin, loggedIn } = useAdminContext()
   return (
     <Routes>
       <Route path='/' element={<Home />} />

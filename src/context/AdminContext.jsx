@@ -7,11 +7,15 @@ const AdminContext = createContext()
 
 // Step 2: Create context provider
 const AdminProvider = ({ children }) => {
-  // FETCH API SECTION 'https://theoutlet.onrender.com/items', https://ecommerce-json-jwt.onrender.com
   const { loading, error, data } = useFetch('https://theoutlet.onrender.com/items')
   const [item, setItem] = useState('')
   const [filteredItems, setFilteredItems] = useState([])
+
   // SIGN IN SECTION
+  const [loggedIn, setLoggedIn] = useState(false)
+  const [users, setUsers] = useState(null)
+  const [userName, setUserName] = useState('')
+
   const [isAdmin, setIsAdmin] = useState(false)
   const login = (token) => {
     const decoded = jwt_decode(token)
@@ -19,18 +23,22 @@ const AdminProvider = ({ children }) => {
     setIsAdmin(admin)
     return admin
   }
-  const logout = () => {
+  const logout = (e) => {
     localStorage.removeItem('jwt_token')
     setIsAdmin(false)
+    e.removeItem()
+  }
+
+  const contextData = {
+    isAdmin, login, logout, item, setItem, filteredItems, setFilteredItems, loading, error, data, loggedIn, setLoggedIn, users, setUsers, setUserName, userName
   }
   return (
-    <AdminContext.Provider value={{ isAdmin, login, logout, item, setItem, filteredItems, setFilteredItems, loading, error, data }}>
+    <AdminContext.Provider value={contextData}>
       {children}
     </AdminContext.Provider>
   )
 }
 
 export { AdminContext, AdminProvider }
-
 // Step 3: Wrap the high-hierarchy component in the provider (AdminProvider), such as: App.jsx
 // Step 4: Create folder hooks with useAdmin.js
