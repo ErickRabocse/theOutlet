@@ -96,3 +96,14 @@ $light-blue: rgb(109, 140, 189);
         }
     }
 }
+
+.shopping{
+    width: 100%;
+    border-top: 1px solid black;
+    margin-top: 20px;
+    &__total{
+        display: inline-block;
+        padding-top: 20px;
+        font-weight: bold;
+    }
+}

@@ -3,7 +3,7 @@ import { useParams } from 'react-router-dom'
 import { useAdminContext } from '@/hooks/useAdmin'
 
 const ProductDetails = () => {
-  const { setOrder } = useAdminContext()
+  const { setOrder, order, setTotal } = useAdminContext()
 
   const { id } = useParams()
   const [product, setProduct] = useState(null)
@@ -16,10 +16,18 @@ const ProductDetails = () => {
   }, [id])
 
   const addToCart = (product) => {
-    setOrder(oldProducts => [...oldProducts, product])
+    setOrder(oldProducts => {
+      return [...oldProducts, product]
+    })
   }
 
-  //   console.log(order.map(el => el.product_name))
+  // THIS useEffect with no dependencies, is run everytime the component is rerendered, and updating the total!
+  useEffect(() => {
+    const subTotal = order.reduce((acc, item) => {
+      return acc + item.price
+    }, 0)
+    setTotal(subTotal)
+  })
 
   return (
     <div className='card mb-3' style={{ maxWidth: '80%', margin: '30px auto' }}>

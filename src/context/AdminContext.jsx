@@ -30,9 +30,10 @@ const AdminProvider = ({ children }) => {
   }
   // SHOPPING SECTION
   const [order, setOrder] = useState([])
+  const [total, setTotal] = useState(0)
 
   const contextData = {
-    isAdmin, login, logout, item, setItem, filteredItems, setFilteredItems, loading, error, data, loggedIn, setLoggedIn, users, setUsers, setUserName, userName, order, setOrder
+    isAdmin, login, logout, item, setItem, filteredItems, setFilteredItems, loading, error, data, loggedIn, setLoggedIn, users, setUsers, setUserName, userName, order, setOrder, total, setTotal
   }
   return (
     <AdminContext.Provider value={contextData}>

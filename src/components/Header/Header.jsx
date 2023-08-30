@@ -4,7 +4,7 @@ import ShoppingCart from '@/pages/ShoppingCart'
 import '@/styles/header.scss'
 
 const Header = () => {
-  const { logout, isAdmin, data, item, setItem, setFilteredItems, loggedIn, userName, order, setOrder } = useAdminContext()
+  const { logout, isAdmin, data, item, setItem, setFilteredItems, loggedIn, userName, order, setOrder, total } = useAdminContext()
 
   const linkIsActive = (isActive) => {
     return isActive ? 'header__item-link header__item-link--is-active' : 'header__item-link'
@@ -86,6 +86,9 @@ const Header = () => {
                         </span>
                       ))
                     }
+                    <section className='shopping'>
+                      <span className='shopping__total' style={{ color: 'green' }}>Total ${total} </span>
+                    </section>
                   </div>
                 </div>
               </li>
