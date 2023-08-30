@@ -6,7 +6,7 @@ const Home = () => {
   const { loading, error, data, filteredItems, item } = useAdminContext()
 
   return (
-    <>
+    <div className='outterHomeContainer'>
       {loading && <h3 className='loading'>Loading...</h3>}
       {error && <p className='error'>There is a problem with the server please email us at: <span style={{ color: 'blue' }}>costumer_service@theoutlet.com</span></p>}
 
@@ -27,7 +27,7 @@ const Home = () => {
         </div>
       </div> */}
 
-      <div className='container'>
+      <div className='container container-md'>
         <div className='row'>
           {item.length === 0
             ? data && data.map(item => (
@@ -57,7 +57,7 @@ const Home = () => {
         </div>
       </div>
 
-    </>
+    </div>
   )
 }
 export default Home

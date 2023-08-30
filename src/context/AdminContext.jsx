@@ -15,8 +15,8 @@ const AdminProvider = ({ children }) => {
   const [loggedIn, setLoggedIn] = useState(false)
   const [users, setUsers] = useState(null)
   const [userName, setUserName] = useState('')
-
   const [isAdmin, setIsAdmin] = useState(false)
+
   const login = (token) => {
     const decoded = jwt_decode(token)
     const admin = decoded.role === 'ADMIN'
@@ -28,9 +28,11 @@ const AdminProvider = ({ children }) => {
     setIsAdmin(false)
     e.removeItem()
   }
+  // SHOPPING SECTION
+  const [order, setOrder] = useState([])
 
   const contextData = {
-    isAdmin, login, logout, item, setItem, filteredItems, setFilteredItems, loading, error, data, loggedIn, setLoggedIn, users, setUsers, setUserName, userName
+    isAdmin, login, logout, item, setItem, filteredItems, setFilteredItems, loading, error, data, loggedIn, setLoggedIn, users, setUsers, setUserName, userName, order, setOrder
   }
   return (
     <AdminContext.Provider value={contextData}>

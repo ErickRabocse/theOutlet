@@ -1,7 +1,10 @@
 import { useEffect, useState } from 'react'
 import { useParams } from 'react-router-dom'
+import { useAdminContext } from '@/hooks/useAdmin'
 
 const ProductDetails = () => {
+  const { setOrder } = useAdminContext()
+
   const { id } = useParams()
   const [product, setProduct] = useState(null)
 
@@ -11,6 +14,12 @@ const ProductDetails = () => {
       .then(data => setProduct(data))
       .catch(e => console.error(e))
   }, [id])
+
+  const addToCart = (product) => {
+    setOrder(oldProducts => [...oldProducts, product])
+  }
+
+  //   console.log(order.map(el => el.product_name))
 
   return (
     <div className='card mb-3' style={{ maxWidth: '80%', margin: '30px auto' }}>
@@ -30,7 +39,7 @@ const ProductDetails = () => {
                 Price: ${product?.price}
               </small>
             </p>
-            <button type='button' className='btn btn-light'>Add to cart</button>
+            <button type='button' className='btn btn-light' onClick={() => addToCart(product)}>Add to cart</button>
           </div>
         </div>
       </div>

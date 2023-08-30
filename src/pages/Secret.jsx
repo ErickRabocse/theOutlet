@@ -23,7 +23,7 @@ const Secret = () => {
 
   return (
     <>
-      <h1 className='title'>Secret</h1>
+      <h1 className='title' style={{ color: 'black' }}>Registered users</h1>
       <div>
         {loading
           ? <h1>Loading users...</h1>
@@ -39,14 +39,6 @@ const Secret = () => {
                   <li className='list-group-item'><span>Role:</span> {role}</li>
                 </ul>
               </div>
-
-            // <div key={id}>
-            //   <span>{first_name}</span><br />
-            //   <span>{last_name}</span><br />
-            //   <span>{gender}</span><br />
-            //   <span>{email}</span><br />
-            //   <span>{role}</span><br />
-            // </div>
             ))}
       </div>
     </>

@@ -1,0 +1,36 @@
+$light-blue: rgb(109, 140, 189);
+
+.shoppingCart{
+    margin-bottom: 5px;
+    display: flex;
+    justify-content: space-between;
+    &__img{
+        width: 120px;
+    }
+    &__content{
+        display: flex;
+        flex-direction: column;
+        font-weight: 300;
+        width: 100%;
+        margin-left: 10px;
+    }
+    &__price{
+        display: block;
+        color: $light-blue;
+        font-weight: 400;
+        margin-top: 10px;
+    }
+    &__btn{
+        background-color: white;
+        border: 1px solid $light-blue;
+        height: 60px;
+        width: 20px;
+        border-radius: 10%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        &:hover{
+            background-color: rgba(130, 152, 187, 0.696);
+        }
+    }
+}

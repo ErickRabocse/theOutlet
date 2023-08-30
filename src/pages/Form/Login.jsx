@@ -23,7 +23,7 @@ const Login = () => {
     */
     try {
       const response = await loginUserService(data)
-      console.log('THIS IS THE loginUserService RESPONSE: ', response)
+      // console.log('THIS IS THE loginUserService RESPONSE: ', response)
       // GETTING THE STATUS FROM LOGIN
       const userStatus = response.status === 200
       setLoggedIn(userStatus)

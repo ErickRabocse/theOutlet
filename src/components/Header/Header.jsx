@@ -1,9 +1,10 @@
 import { NavLink } from 'react-router-dom'
-import '@/styles/header.scss'
 import { useAdminContext } from '@/hooks/useAdmin'
+import ShoppingCart from '@/pages/ShoppingCart'
+import '@/styles/header.scss'
 
 const Header = () => {
-  const { logout, isAdmin, data, item, setItem, setFilteredItems, loggedIn, userName } = useAdminContext()
+  const { logout, isAdmin, data, item, setItem, setFilteredItems, loggedIn, userName, order, setOrder } = useAdminContext()
 
   const linkIsActive = (isActive) => {
     return isActive ? 'header__item-link header__item-link--is-active' : 'header__item-link'
@@ -12,6 +13,11 @@ const Header = () => {
   const showItems = () => {
     const filteredStuff = data.filter(el => el.product_name.toLowerCase().includes(item.toLowerCase().trim()))
     setFilteredItems(filteredStuff)
+  }
+
+  const deleteItem = (id) => {
+    const newArr = order.filter(el => el.id !== id)
+    setOrder(newArr)
   }
 
   return (
@@ -48,7 +54,7 @@ const Header = () => {
             !loggedIn
               ? <li className='header__list-item header__list-item--login'>
                 <NavLink to='/loginPage' className={({ isActive }) => linkIsActive(isActive)}>Log in</NavLink>
-              </li>
+                </li>
               : <span className='header__welcome-message'>Hi {userName}</span>
           }
         {
@@ -66,7 +72,22 @@ const Header = () => {
         {
             loggedIn &&
               <li className='header__list-item'>
-                <NavLink className='header__shopping-cart' to='/'>🛒</NavLink>
+                <button className='header__shopping-cart' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasRight' aria-controls='offcanvasRight'>🛒</button>
+                <div className='offcanvas offcanvas-end' tabIndex='-1' id='offcanvasRight' aria-labelledby='offcanvasRightLabel'>
+                  <div className='offcanvas-header'>
+                    <h5 className='offcanvas-title' id='offcanvasRightLabel'>Shopping list</h5>
+                    <button type='button' className='btn-close' data-bs-dismiss='offcanvas' aria-label='Close' />
+                  </div>
+                  <div className='offcanvas-body'>
+                    {
+                      order.map(item => (
+                        <span key={item.id}>
+                          <ShoppingCart name={item.product_name} image={item?.image || item?.images} price={item.price} id={item.id} handleDelete={deleteItem} />
+                        </span>
+                      ))
+                    }
+                  </div>
+                </div>
               </li>
           }
       </ul>
