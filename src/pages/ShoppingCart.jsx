@@ -3,19 +3,22 @@ import '@/styles/shoppingCart.scss'
 import { useState } from 'react'
 
 const ShoppingCart = ({ name, image, price, id, handleDelete }) => {
-  const { setOrder } = useAdminContext()
+  const { setOrder, setItemsAmount, itemsAmount } = useAdminContext()
   const [quantity, setQuantity] = useState(1)
-  const rest = (id) => {
+  const rest = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1)
       quantityPriceDecrement()
+      setItemsAmount(itemsAmount - 1)
     } else {
       handleDelete(id)
+      setItemsAmount(itemsAmount - 1)
     }
   }
   const add = () => {
     setQuantity(quantity + 1)
     quantityPriceIncrement()
+    setItemsAmount(itemsAmount + 1)
   }
 
   const quantityPriceIncrement = () => {
@@ -44,7 +47,7 @@ const ShoppingCart = ({ name, image, price, id, handleDelete }) => {
         return oldProducts.map(item => {
           if (item.id === id) {
             const itemOriginalPrice = price / quantity
-            console.log('THIS IS THE ORIGINAL PRICE, increment', itemOriginalPrice)
+            console.log('THIS IS THE ORIGINAL PRICE, decrement', itemOriginalPrice)
             return { ...item, price: item.price - itemOriginalPrice }
           } else {
             return item

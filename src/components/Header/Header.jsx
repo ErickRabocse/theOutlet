@@ -4,7 +4,7 @@ import ShoppingCart from '@/pages/ShoppingCart'
 import '@/styles/header.scss'
 
 const Header = () => {
-  const { logout, isAdmin, data, item, setItem, setFilteredItems, loggedIn, userName, order, total, deleteItem } = useAdminContext()
+  const { logout, isAdmin, data, item, setItem, setFilteredItems, loggedIn, userName, order, total, deleteItem, itemsAmount } = useAdminContext()
 
   const linkIsActive = (isActive) => {
     return isActive ? 'header__item-link header__item-link--is-active' : 'header__item-link'
@@ -49,7 +49,7 @@ const Header = () => {
             !loggedIn
               ? <li className='header__list-item header__list-item--login'>
                 <NavLink to='/loginPage' className={({ isActive }) => linkIsActive(isActive)}>Log in</NavLink>
-              </li>
+                </li>
               : <span className='header__welcome-message'>Hi {userName}</span>
           }
         {
@@ -67,7 +67,13 @@ const Header = () => {
         {
             loggedIn &&
               <li className='header__list-item'>
-                <button className='header__shopping-cart' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasRight' aria-controls='offcanvasRight'>🛒</button>
+                <div className='header__shoppingCart'>
+                  <button className='header__shopping-cart header__shoppingCart-btn' type='button' data-bs-toggle='offcanvas' data-bs-target='#offcanvasRight' aria-controls='offcanvasRight'>
+                    🛒
+                  </button>
+                  <span className='header__shoppingCart-amount'>{itemsAmount}</span>
+                </div>
+
                 <div className='offcanvas offcanvas-end' tabIndex='-1' id='offcanvasRight' aria-labelledby='offcanvasRightLabel'>
                   <div className='offcanvas-header'>
                     <h5 className='offcanvas-title' id='offcanvasRightLabel'>Shopping list</h5>

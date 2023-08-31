@@ -4,7 +4,7 @@ import { useAdminContext } from '@/hooks/useAdmin'
 import '@/styles/productDetail.scss'
 
 const ProductDetails = () => {
-  const { setOrder, order, setTotal, loggedIn } = useAdminContext()
+  const { setOrder, order, setTotal, loggedIn, setItemsAmount, itemsAmount } = useAdminContext()
   const { id } = useParams()
   const [product, setProduct] = useState(null)
 
@@ -24,6 +24,7 @@ const ProductDetails = () => {
           alert('Item added. Please update quantity in the shopping cart.')
           return [...oldProducts]
         } else {
+          setItemsAmount(itemsAmount + 1)
           return [...oldProducts, product]
         }
       })

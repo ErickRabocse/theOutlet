@@ -95,6 +95,23 @@ $light-blue: rgb(109, 140, 189);
             width:100%;
         }
     }
+    &__shoppingCart{
+        position: relative;
+        &-amount{
+            // display: block;
+            display: flex;
+            justify-content: center;
+            position: absolute;
+            top: -7px;
+            right: -7px;
+            background-color: rgba(0, 0, 0, 0.655);
+            color: white;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            outline: 2px solid white;
+        }
+    }
 }
 
 .shopping{
