@@ -1,12 +1,13 @@
 $light-blue: rgb(109, 140, 189);
 
 .shoppingCart{
-    margin-bottom: 5px;
+    margin-bottom: 30px;
     display: flex;
     justify-content: space-between;
     &__quantity{
         margin: 0 10px;
         &-btn{
+            height: 10px;
             border: 1px solid black;
             padding: 5px;
             border-radius: 5px;
@@ -35,10 +36,10 @@ $light-blue: rgb(109, 140, 189);
     }
     &__btn{
         background-color: white;
-        border: 1px solid $light-blue;
+        border: none;
         height: 60px;
-        width: 20px;
-        border-radius: 10%;
+        width: 5px;
+        border-radius: 50%;
         display: flex;
         justify-content: center;
         align-items: center;

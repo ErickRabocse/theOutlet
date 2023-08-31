@@ -30,7 +30,7 @@ const ProductDetails = () => {
       : alert('Please "register" or "sign in" to order from our store.')
   }
 
-  // THIS useEffect with no dependencies, is run everytime the component is rerendered, and updating the total!
+  // THIS useEffect with no dependencies, is run everytime the component//OR-setTotal state// is rerendered, and updates the total!
   useEffect(() => {
     const subTotal = order.reduce((acc, item) => {
       return acc + item.price

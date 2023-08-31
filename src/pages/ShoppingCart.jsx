@@ -1,19 +1,59 @@
-// import { useAdminContext } from '@/hooks/useAdmin'
+import { useAdminContext } from '@/hooks/useAdmin'
 import '@/styles/shoppingCart.scss'
 import { useState } from 'react'
 
 const ShoppingCart = ({ name, image, price, id, handleDelete }) => {
+  const { setOrder } = useAdminContext()
   const [quantity, setQuantity] = useState(1)
-  const rest = () => {
+  const rest = (id) => {
     if (quantity > 1) {
       setQuantity(quantity - 1)
+      quantityPriceDecrement()
     } else {
       handleDelete(id)
     }
   }
-
   const add = () => {
     setQuantity(quantity + 1)
+    quantityPriceIncrement()
+  }
+
+  const quantityPriceIncrement = () => {
+    setOrder(oldProducts => {
+      const itemFound = oldProducts.find(item => item.id === id)
+      if (itemFound) {
+        return oldProducts.map(item => {
+          if (item.id === id) {
+            const itemOriginalPrice = price / quantity
+            console.log('THIS IS THE ORIGINAL PRICE, increment', itemOriginalPrice)
+            return { ...item, price: item.price + itemOriginalPrice }
+          } else {
+            return item
+          }
+        })
+      } else {
+        return [...oldProducts]
+      }
+    })
+  }
+
+  const quantityPriceDecrement = () => {
+    setOrder(oldProducts => {
+      const itemFound = oldProducts.find(item => item.id === id)
+      if (itemFound) {
+        return oldProducts.map(item => {
+          if (item.id === id) {
+            const itemOriginalPrice = price / quantity
+            console.log('THIS IS THE ORIGINAL PRICE, increment', itemOriginalPrice)
+            return { ...item, price: item.price - itemOriginalPrice }
+          } else {
+            return item
+          }
+        })
+      } else {
+        return [...oldProducts]
+      }
+    })
   }
 
   return (
