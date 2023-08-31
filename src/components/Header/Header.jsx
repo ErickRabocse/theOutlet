@@ -4,7 +4,7 @@ import ShoppingCart from '@/pages/ShoppingCart'
 import '@/styles/header.scss'
 
 const Header = () => {
-  const { logout, isAdmin, data, item, setItem, setFilteredItems, loggedIn, userName, order, setOrder, total } = useAdminContext()
+  const { logout, isAdmin, data, item, setItem, setFilteredItems, loggedIn, userName, order, total, deleteItem } = useAdminContext()
 
   const linkIsActive = (isActive) => {
     return isActive ? 'header__item-link header__item-link--is-active' : 'header__item-link'
@@ -13,11 +13,6 @@ const Header = () => {
   const showItems = () => {
     const filteredStuff = data.filter(el => el.product_name.toLowerCase().includes(item.toLowerCase().trim()))
     setFilteredItems(filteredStuff)
-  }
-
-  const deleteItem = (id) => {
-    const newArr = order.filter(el => el.id !== id)
-    setOrder(newArr)
   }
 
   return (
@@ -54,7 +49,7 @@ const Header = () => {
             !loggedIn
               ? <li className='header__list-item header__list-item--login'>
                 <NavLink to='/loginPage' className={({ isActive }) => linkIsActive(isActive)}>Log in</NavLink>
-                </li>
+              </li>
               : <span className='header__welcome-message'>Hi {userName}</span>
           }
         {

@@ -1,10 +1,10 @@
 import { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, useNavigate } from 'react-router-dom'
 import { useAdminContext } from '@/hooks/useAdmin'
+import '@/styles/productDetail.scss'
 
 const ProductDetails = () => {
-  const { setOrder, order, setTotal } = useAdminContext()
-
+  const { setOrder, order, setTotal, loggedIn } = useAdminContext()
   const { id } = useParams()
   const [product, setProduct] = useState(null)
 
@@ -16,9 +16,18 @@ const ProductDetails = () => {
   }, [id])
 
   const addToCart = (product) => {
-    setOrder(oldProducts => {
-      return [...oldProducts, product]
-    })
+    setBtnState(true)
+    loggedIn
+      ? setOrder(oldProducts => {
+        const itemFound = oldProducts.find(el => el.id === product.id)
+        if (itemFound) {
+          alert('Item added. Please update quantity in the shopping cart.')
+          return [...oldProducts]
+        } else {
+          return [...oldProducts, product]
+        }
+      })
+      : alert('Please "register" or "sign in" to order from our store.')
   }
 
   // THIS useEffect with no dependencies, is run everytime the component is rerendered, and updating the total!
@@ -29,6 +38,17 @@ const ProductDetails = () => {
     setTotal(subTotal)
   })
 
+  // STYLING BUTTON AS CHECKED AFTER CLICK
+  const [btnState, setBtnState] = useState(false)
+  const toggleBtnClass = btnState ? 'btn btn-dark' : 'btn btn-light'
+
+  //  NAVIGATING BACK HOME
+  const navigate = useNavigate()
+
+  const goHome = () => {
+    navigate('/')
+  }
+
   return (
     <div className='card mb-3' style={{ maxWidth: '80%', margin: '30px auto' }}>
       <div className='row g-0'>
@@ -37,8 +57,10 @@ const ProductDetails = () => {
         </div>
         <div className='col-md-8'>
           <div className='card-body'>
-            <h5 className='card-title'>{product?.product_name}
-            </h5>
+            <div id='title_and_close'>
+              <h5 className='card-title'>{product?.product_name}</h5>
+              <span className='close-details' onClick={goHome}>❌</span>
+            </div>
             <p className='card-text'>{product?.description}</p>
             <p className='card-text'>
               <small className='text-body-secondary'>
@@ -47,7 +69,7 @@ const ProductDetails = () => {
                 Price: ${product?.price}
               </small>
             </p>
-            <button type='button' className='btn btn-light' onClick={() => addToCart(product)}>Add to cart</button>
+            <button type='button' className={toggleBtnClass} onClick={() => addToCart(product)}>Add to cart</button>
           </div>
         </div>
       </div>

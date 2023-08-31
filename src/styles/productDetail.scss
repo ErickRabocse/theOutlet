@@ -1,0 +1,20 @@
+#title_and_close{
+    display: flex;
+    justify-content: space-between;
+    height: 50px;
+}
+.close-details{
+    border: 2px dotted white;
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: white;
+    cursor: pointer;
+    &:hover{
+        height: 39px;
+        width: 39px; 
+    }
+}
