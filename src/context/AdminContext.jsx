@@ -31,12 +31,13 @@ const AdminProvider = ({ children }) => {
   // SHOPPING SECTION
   const [order, setOrder] = useState([])
   const [total, setTotal] = useState(0)
+  const [itemsAmount, setItemsAmount] = useState(0)
+
   const deleteItem = (id) => {
     const newArr = order.filter(el => el.id !== id)
     setOrder(newArr)
-    setItemsAmount(newArr.length)
+    setItemsAmount(itemsAmount - 1)
   }
-  const [itemsAmount, setItemsAmount] = useState(0)
 
   const contextData = {
     isAdmin, login, logout, item, setItem, filteredItems, setFilteredItems, loading, error, data, loggedIn, setLoggedIn, users, setUsers, setUserName, userName, order, setOrder, total, setTotal, deleteItem, itemsAmount, setItemsAmount

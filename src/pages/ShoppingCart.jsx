@@ -2,16 +2,23 @@ import { useAdminContext } from '@/hooks/useAdmin'
 import '@/styles/shoppingCart.scss'
 import { useState } from 'react'
 
-const ShoppingCart = ({ name, image, price, id, handleDelete }) => {
-  const { setOrder, setItemsAmount, itemsAmount } = useAdminContext()
+const ShoppingCart = ({ name, image, price, id }) => {
+  const { setOrder, setItemsAmount, itemsAmount, order } = useAdminContext()
   const [quantity, setQuantity] = useState(1)
+
+  const customDelete = (id) => {
+    const newArr = order.filter(el => el.id !== id)
+    setOrder(newArr)
+    setItemsAmount(itemsAmount - quantity)
+  }
+
   const rest = () => {
     if (quantity > 1) {
       setQuantity(quantity - 1)
       quantityPriceDecrement()
       setItemsAmount(itemsAmount - 1)
     } else {
-      handleDelete(id)
+      customDelete(id)
       setItemsAmount(itemsAmount - 1)
     }
   }
@@ -74,7 +81,7 @@ const ShoppingCart = ({ name, image, price, id, handleDelete }) => {
         </div>
 
       </div>
-      <button className='shoppingCart__btn' onClick={() => handleDelete(id)}>❌</button>
+      <button className='shoppingCart__btn' onClick={() => customDelete(id)}>❌</button>
     </div>
   )
 }
